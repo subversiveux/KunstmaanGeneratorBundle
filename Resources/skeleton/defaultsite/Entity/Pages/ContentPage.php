@@ -1,10 +1,10 @@
 <?php
 
-namespace {{ namespace }}\Entity;
+namespace {{ namespace }}\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use {{ namespace }}\Form\ContentPageAdminType;
+use {{ namespace }}\Form\Pages\ContentPageAdminType;
 
 /**
  * ContentPage

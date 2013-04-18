@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }}\Form;
+namespace {{ namespace }}\Form\Pages;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -18,7 +18,7 @@ class ContentPageAdminType extends AbstractContentPageAdminType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => '{{ namespace }}\Entity\ContentPage'
+            'data_class' => '{{ namespace }}\Entity\Pages\ContentPage'
         ));
     }
 

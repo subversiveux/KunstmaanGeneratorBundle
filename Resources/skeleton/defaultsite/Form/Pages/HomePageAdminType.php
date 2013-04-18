@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }}\Form;
+namespace {{ namespace }}\Form\Pages;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,7 +35,7 @@ class HomePageAdminType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => '{{ namespace }}\Entity\HomePage'
+            'data_class' => '{{ namespace }}\Entity\Pages\HomePage'
         ));
     }
 

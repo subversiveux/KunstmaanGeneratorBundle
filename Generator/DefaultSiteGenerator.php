@@ -69,6 +69,35 @@ class DefaultSiteGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\Gene
         $this->generateFixtures($bundle, $parameters);
         $this->generateAssets($bundle);
         $this->generateTemplates($bundle, $parameters, $rootDir);
+        $this->generateBehatTests($bundle);
+        $this->generateUnitTests($bundle, $parameters);
+    }
+
+    /**
+     * @param Bundle $bundle
+     * @param array  $parameters The template parameters
+     */
+    public function generateUnitTests(Bundle $bundle, array $parameters)
+    {
+        $dirPath = $bundle->getPath();
+        $fullSkeletonDir = $this->skeletonDir . '/Tests';
+
+        $this->renderFile($fullSkeletonDir, '/Controller/DefaultControllerTest.php', $dirPath . '/Tests/Controller/DefaultControllerTest.php', $parameters);
+
+        $this->output->writeln('Generating Unit Tests : <info>OK</info>');
+    }
+
+    /**
+     * @param Bundle $bundle
+     */
+    public function generateBehatTests(Bundle $bundle)
+    {
+        $dirPath = $bundle->getPath();
+        $fullSkeletonDir = $this->skeletonDir . '/Features';
+
+        $this->filesystem->copy($fullSkeletonDir . '/homepage.feature', $dirPath . '/Features/homepage.feature', true);
+
+        $this->output->writeln('Generating Behat Tests : <info>OK</info>');
     }
 
     /**
@@ -88,15 +117,15 @@ class DefaultSiteGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\Gene
 
         $this->filesystem->copy($fullSkeletonDir . '/AbstractContentPage/view.html.twig', $dirPath . '/Resources/views/AbstractContentPage/view.html.twig', true);
         GeneratorUtils::prepend("{% extends '" . $bundle->getName() .":Page:layout.html.twig' %}\n", $dirPath . '/Resources/views/AbstractContentPage/view.html.twig');
-
+        
         $this->filesystem->copy($fullSkeletonDir . '/Form/fields.html.twig', $dirPath . '/Resources/views/Form/fields.html.twig', true);
 
-        $this->filesystem->copy($fullSkeletonDir . '/FormPage/view.html.twig', $dirPath . '/Resources/views/FormPage/view.html.twig', true);
-        GeneratorUtils::prepend("{% extends '" . $bundle->getName() .":Page:layout.html.twig' %}\n", $dirPath . '/Resources/views/FormPage/view.html.twig');
-        GeneratorUtils::replace("~~~BUNDLE~~~", $bundle->getName(), $dirPath . '/Resources/views/FormPage/view.html.twig');
+        $this->filesystem->copy($fullSkeletonDir . '/Pages/FormPage/view.html.twig', $dirPath . '/Resources/views/Pages/FormPage/view.html.twig', true);
+        GeneratorUtils::prepend("{% extends '" . $bundle->getName() .":Page:layout.html.twig' %}\n", $dirPath . '/Resources/views/Pages/FormPage/view.html.twig');
+        GeneratorUtils::replace("~~~BUNDLE~~~", $bundle->getName(), $dirPath . '/Resources/views/Pages/FormPage/view.html.twig');
 
-        $this->filesystem->copy($fullSkeletonDir . '/HomePage/view.html.twig', $dirPath . '/Resources/views/HomePage/view.html.twig', true);
-        GeneratorUtils::prepend("{% extends '" . $bundle->getName() .":Page:layout.html.twig' %}\n", $dirPath . '/Resources/views/HomePage/view.html.twig');
+        $this->filesystem->copy($fullSkeletonDir . '/Pages/HomePage/view.html.twig', $dirPath . '/Resources/views/Pages/HomePage/view.html.twig', true);
+        GeneratorUtils::prepend("{% extends '" . $bundle->getName() .":Page:layout.html.twig' %}\n", $dirPath . '/Resources/views/Pages/HomePage/view.html.twig');
 
         $this->filesystem->copy($fullSkeletonDir . '/Layout/layout.html.twig', $dirPath . '/Resources/views/Layout/layout.html.twig', true);
         GeneratorUtils::replace("~~~CSS~~~", "{% include '" . $bundle->getName() .":Layout:_css.html.twig' %}\n", $dirPath . '/Resources/views/Layout/layout.html.twig');
@@ -227,8 +256,8 @@ class DefaultSiteGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\Gene
      */
     public function generateForm(Bundle $bundle, array $parameters)
     {
-        $dirPath = $bundle->getPath() . '/Form';
-        $fullSkeletonDir = $this->skeletonDir . '/Form';
+        $dirPath = $bundle->getPath() . '/Form/Pages';
+        $fullSkeletonDir = $this->skeletonDir . '/Form/Pages';
 
         try {
             $this->generateSkeletonBasedClass($fullSkeletonDir, $dirPath, 'AbstractContentPageAdminType', $parameters);
@@ -260,8 +289,8 @@ class DefaultSiteGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\Gene
      */
     public function generateEntities(Bundle $bundle, array $parameters)
     {
-        $dirPath = sprintf("%s/Entity", $bundle->getPath());
-        $fullSkeletonDir = sprintf("%s/Entity", $this->skeletonDir);
+        $dirPath = sprintf("%s/Entity/Pages", $bundle->getPath());
+        $fullSkeletonDir = sprintf("%s/Entity/Pages", $this->skeletonDir);
 
         try {
             $this->generateSkeletonBasedClass($fullSkeletonDir, $dirPath, 'AbstractContentPage', $parameters);
