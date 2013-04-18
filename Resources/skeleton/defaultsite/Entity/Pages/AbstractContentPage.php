@@ -1,13 +1,13 @@
 <?php
 
-namespace {{ namespace }}\Entity;
+namespace {{ namespace }}\Entity\Pages;
 
 use Symfony\Component\Form\AbstractType;
 
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\PagePartBundle\Helper\HasPagePartsInterface;
 use Kunstmaan\PagePartBundle\PagePartAdmin\AbstractPagePartAdminConfigurator;
-use {{ namespace }}\Form\AbstractContentPageAdminType;
+use {{ namespace }}\Form\Pages\AbstractContentPageAdminType;
 use {{ namespace }}\PagePartAdmin\BannerPagePartAdminConfigurator;
 use {{ namespace }}\PagePartAdmin\AbstractContentPagePagePartAdminConfigurator;
 
@@ -35,11 +35,11 @@ class AbstractContentPage extends AbstractPage implements HasPagePartsInterface
         return array (
             array(
                 'name' => 'ContentPage',
-                'class'=> "{{ namespace }}\Entity\ContentPage"
+                'class'=> "{{ namespace }}\Entity\Pages\ContentPage"
             ),
             array(
                 'name' => 'FormPage',
-                'class'=> "{{ namespace }}\Entity\FormPage"
+                'class'=> "{{ namespace }}\Entity\Pages\FormPage"
             )
         );
     }
@@ -57,7 +57,7 @@ class AbstractContentPage extends AbstractPage implements HasPagePartsInterface
      */
     public function getDefaultView()
     {
-        return "{{ bundle.getName() }}:AbstractContentPage:view.html.twig";
+        return "{{ bundle.getName() }}:Pages\AbstractContentPage:view.html.twig";
     }
 
 }
